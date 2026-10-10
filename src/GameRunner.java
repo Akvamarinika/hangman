@@ -1,11 +1,9 @@
 public class GameRunner {
-    private final Renderer renderer;
-    private final InputUser inputUser;
+    private final GameUI gameUI;
     private final WordProvider wordProvider;
 
-    GameRunner(Renderer renderer, InputUser inputUser, WordProvider wordProvider) {
-        this.renderer = renderer;
-        this.inputUser = inputUser;
+    GameRunner(ConsoleUI gameUI, WordProvider wordProvider) {
+        this.gameUI = gameUI;
         this.wordProvider = wordProvider;
     }
 
@@ -13,8 +11,8 @@ public class GameRunner {
         Menu menu = Menu.UNKNOWN;
 
         while (menu != Menu.EXIT) {
-            renderer.displayMenu();
-            menu = inputUser.readMenuCommand();
+            gameUI.displayMenu();
+            menu = gameUI.readMenuCommand();
             if (menu == Menu.NEW_GAME) {
                 gameStart();
             }
@@ -27,17 +25,16 @@ public class GameRunner {
         Game game = new Game(word);
 
         while (game.getState() == GameState.CONTINUE) {
-            renderer.displayWordMask(game.getStateWord());
-            renderer.displayLives(game.getCountLives());
-            renderer.printEnterLetter();
-            char letter = inputUser.readLetter();
+            gameUI.displayWordMask(game.getStateWord());
+            gameUI.displayLives(game.getCountLives());
+            char letter = gameUI.readLetter();
             GameMoveResult gameMoveResult = game.guessLetter(letter);
 
             if (gameMoveResult == GameMoveResult.USED_LETTER){
-                renderer.printAlreadyUsed(letter);
+                gameUI.printAlreadyUsed(letter);
             }
 
-            renderer.displayGameResult(game.getState());
+            gameUI.displayGameResult(game.getState());
         }
     }
 }
