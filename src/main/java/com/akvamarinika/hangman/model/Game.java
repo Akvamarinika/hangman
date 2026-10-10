@@ -1,3 +1,5 @@
+package main.java.com.akvamarinika.hangman.model;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

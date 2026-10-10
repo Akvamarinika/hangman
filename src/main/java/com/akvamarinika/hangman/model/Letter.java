@@ -1,3 +1,5 @@
+package main.java.com.akvamarinika.hangman.model;
+
 public class Letter {
     private final char value;
     private boolean isSolved = false;

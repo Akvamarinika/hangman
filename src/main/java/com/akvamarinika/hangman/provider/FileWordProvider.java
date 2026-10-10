@@ -1,3 +1,5 @@
+package main.java.com.akvamarinika.hangman.provider;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -5,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class WordProvider {
+public class FileWordProvider implements WordProvider {
     private final static String FILE_PATH = "russian-words.txt";
 
     public String chooseWordRandom() {

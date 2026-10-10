@@ -1,3 +1,5 @@
+package main.java.com.akvamarinika.hangman.ui;
+
 public class GameText {
     //public static final String LOSE_TEXT = "Вы проиграли! Слово было: ";
     public static final String LOSE_TEXT = "❌❌❌ Вы проиграли! ❌❌❌";

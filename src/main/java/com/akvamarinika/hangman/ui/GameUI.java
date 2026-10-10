@@ -1,3 +1,8 @@
+package main.java.com.akvamarinika.hangman.ui;
+
+import main.java.com.akvamarinika.hangman.model.GameState;
+import main.java.com.akvamarinika.hangman.model.Letter;
+
 import java.util.List;
 
 public interface GameUI {
