@@ -16,42 +16,43 @@ public class Game {
         this.state = GameState.CONTINUE;
     }
 
-    private int loseLife(){
+    private int loseLife() {
         return countLives--;
     }
 
-    public int getCountLives(){
+    public int getCountLives() {
         return countLives;
     }
 
-    public List<Letter> getStateWord(){
-       return new ArrayList<>(word.getStateWord());
+    public List<Letter> getStateWord() {
+        return new ArrayList<>(word.getStateWord());
     }
 
     public GameState getState() {
         return state;
     }
 
-    public void play(char letter){
-        if (alreadyNamed(letter)){
-            return; //TODO: написать вывод, что игрок вводил букву
+    public GameMoveResult guessLetter(char letter) {
+        if (alreadyNamed(letter)) {
+            return GameMoveResult.USED_LETTER;
         }
 
         boolean hasLetter = word.makeGuessLetter(letter);
-        if (!hasLetter){
+        if (!hasLetter) {
             this.loseLife();
         }
 
         namedLetters.add(letter);
         this.updateState();
+        return hasLetter ? GameMoveResult.CORRECT_LETTER : GameMoveResult.WRONG_LETTER;
     }
 
-    private boolean alreadyNamed(char letter){
+    private boolean alreadyNamed(char letter) {
         return namedLetters.contains(letter);
     }
 
-    private void updateState(){
-        if (countLives == 0){
+    private void updateState() {
+        if (countLives == 0) {
             state = GameState.LOSS;
         } else if (word.isSolved()) {
             state = GameState.WIN;
