@@ -5,42 +5,34 @@ public class Word {
     private final String secretWord;
     private final List<Letter> stateWord;
 
-    public Word (String secretWord){
+    public Word(String secretWord) {
         this.secretWord = secretWord;
         this.stateWord = createMask();
     }
 
-    private List<Letter> createMask(){
+    private List<Letter> createMask() {
         List<Letter> state = new ArrayList<>(secretWord.length());
-        for (char value : secretWord.toCharArray()){
+        for (char value : secretWord.toCharArray()) {
             state.add(new Letter(value));
         }
 
         return state;
     }
 
-    public boolean makeGuessLetter(char letterUser){
-        /*boolean isLetterFound = false;
-
-        for (Letter letter : stateWord){
-            if (letter.openIfMatches(letterUser)){
-                isLetterFound = true;
-            }
-        }*/
-
-        long countMatchLetters = stateWord.stream()
+    public boolean makeGuessLetter(char letterUser) {
+        long matchedLetters = stateWord.stream()
                 .filter(letter -> letter.openIfMatches(letterUser))
                 .count();
-        return countMatchLetters > 0;
+        return matchedLetters > 0;
     }
 
-    public boolean isSolved(){
-        for (Letter letter : stateWord){
+    public boolean isSolved() {
+        for (Letter letter : stateWord) {
             if (!letter.isSolved()) {
-               return false;
+                return false;
             }
         }
-       return true;
+        return true;
     }
 
     public List<Letter> getStateWord() {

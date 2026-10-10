@@ -1,59 +1,40 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class InputUser {
-    private final static String FILE_PATH = "russian-words.txt";
-    private final static char NEW_GAME = '1';
-    private final static char EXIT = '2';
+    private static final char NEW_GAME = '1';
+    private static final char EXIT = '2';
+    private static final String LETTER_PATTERN = "[а-яА-ЯёЁ]";
+    private static final Pattern pattern = Pattern.compile(LETTER_PATTERN);
+    private final Scanner scanner;
 
-    public static char readLetter(){
-        System.out.println(GameText.ENTER_LETTER_TEXT);
-        Scanner scanner = new Scanner(System.in);
-        char letter = scanner.next().trim().toUpperCase().charAt(0);
-        System.out.println(letter);
-        return letter;
-        //TODO: 1-исключить ввод чисел и символов
+    public InputUser() {
+        this.scanner = new Scanner(System.in);
     }
 
-    public static Menu readMenuCommand(){
-        System.out.println(GameText.MENU_GAME_TEXT);
-        System.out.println(GameText.MENU_EXIT_TEXT);
-        Scanner scanner = new Scanner(System.in);
-        char inputUser = scanner.next().trim().charAt(0);
-        //TODO: 2-проверить ввод
-        switch (inputUser){
-            case NEW_GAME -> {
-                return Menu.NEW_GAME;
-            }
-            case EXIT -> {
-                return Menu.EXIT;
-            }
-            default -> {
-                return Menu.UNKNOWN;
+    public char readLetter() {
+        while (true) {
+            String inputLetter = scanner.next().trim().toUpperCase();
+
+            if (validate(inputLetter)) {
+                return inputLetter.charAt(0);
             }
         }
     }
 
-    public static String chooseWordRandom(){
-        try(BufferedReader fileReader = new BufferedReader(new FileReader(FILE_PATH))){
-            StringBuilder sb = new StringBuilder();
-            int symbol = fileReader.read();
-            while (symbol != -1){
-                sb.append((char) symbol);
-                symbol = fileReader.read();
-            }
-            String[] words = sb.toString().split("\n");
-            Random random = new Random();
-            int index = random.nextInt(words.length);
-            return words[index].toUpperCase();
-        } catch(IOException e){
-            e.getStackTrace();
-        }
+    private boolean validate(String letter){
+        return pattern
+                .matcher(letter)
+                .matches();
+    }
 
+    public Menu readMenuCommand() {
+        char inputMenuNumber = scanner.next().trim().charAt(0);
 
-        return "";
+        return switch (inputMenuNumber) {
+            case NEW_GAME -> Menu.NEW_GAME;
+            case EXIT -> Menu.EXIT;
+            default -> Menu.UNKNOWN;
+        };
     }
 }

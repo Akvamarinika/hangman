@@ -6,8 +6,8 @@ public class Letter {
         this.value = value;
     }
 
-    public boolean openIfMatches(char letter){
-        if (value == letter){
+    public boolean openIfMatches(char letter) {
+        if (value == letter) {
             isSolved = true;
             return true;
         }
