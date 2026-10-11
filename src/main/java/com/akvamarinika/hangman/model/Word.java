@@ -40,4 +40,8 @@ public class Word {
     public List<Letter> getStateWord() {
         return new ArrayList<>(stateWord);
     }
+
+    public String getSecretWord() {
+        return secretWord;
+    }
 }

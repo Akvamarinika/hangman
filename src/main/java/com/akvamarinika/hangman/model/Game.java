@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Game {
     private static final int LIVES = 6;
-    private final Set<Character> namedLetters = new HashSet<>();
+    private final Set<Character> usedLetters = new HashSet<>();
     private final Word word;
     private int countLives;
     private GameState state;
@@ -44,13 +44,13 @@ public class Game {
             this.loseLife();
         }
 
-        namedLetters.add(letter);
+        usedLetters.add(letter);
         this.updateState();
         return hasLetter ? GameMoveResult.CORRECT_LETTER : GameMoveResult.WRONG_LETTER;
     }
 
     private boolean alreadyNamed(char letter) {
-        return namedLetters.contains(letter);
+        return usedLetters.contains(letter);
     }
 
     private void updateState() {
@@ -59,5 +59,13 @@ public class Game {
         } else if (word.isSolved()) {
             state = GameState.WIN;
         }
+    }
+
+    public Set<Character> getUsedLetters() {
+        return usedLetters;
+    }
+
+    public String getSecretWord(){
+        return word.getSecretWord();
     }
 }
