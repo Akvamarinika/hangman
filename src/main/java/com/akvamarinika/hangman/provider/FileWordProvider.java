@@ -1,30 +1,32 @@
 package main.java.com.akvamarinika.hangman.provider;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Collections;
+import java.io.*;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
 
 public class FileWordProvider implements WordProvider {
-    private final static String FILE_PATH = "russian-words.txt";
+    public static final String ERROR_READ_FILE = "Failed to open file containing words at specified path '%s'. The program will terminate.";
+    private final String filePath;
+    private final Random random;
+
+    public FileWordProvider(String filePath) {
+        this.filePath = filePath;
+        this.random = new Random();
+    }
 
     public String chooseWordRandom() {
         List<String> words = readFile();
-        Random random = new Random();
         int index = random.nextInt(words.size());
         return words.get(index).toUpperCase();
     }
 
     private List<String> readFile() {
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(FILE_PATH))) {
-            return fileReader
-                    .lines()
-                    .toList();
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+            return fileReader.lines().toList();
         } catch (IOException e) {
-            e.getStackTrace();      //TODO подумать над обработкой ошибки
+            String absolutePath = Path.of(filePath).toAbsolutePath().toString();
+            throw new UncheckedIOException(ERROR_READ_FILE.formatted(absolutePath), e);
         }
-        return Collections.emptyList();
     }
 }
