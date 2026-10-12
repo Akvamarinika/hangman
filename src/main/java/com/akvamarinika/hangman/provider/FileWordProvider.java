@@ -1,6 +1,8 @@
 package main.java.com.akvamarinika.hangman.provider;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
@@ -22,10 +24,11 @@ public class FileWordProvider implements WordProvider {
     }
 
     private List<String> readFile() {
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+        Path path = Path.of(filePath);
+        try (BufferedReader fileReader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
             return fileReader.lines().toList();
         } catch (IOException e) {
-            String absolutePath = Path.of(filePath).toAbsolutePath().toString();
+            String absolutePath = path.toAbsolutePath().toString();
             throw new UncheckedIOException(ERROR_READ_FILE.formatted(absolutePath), e);
         }
     }
