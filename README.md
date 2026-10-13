@@ -65,3 +65,38 @@ Java 17+
 
 ### Требования
 * Установленный JDK версии 17 или выше.
+
+### Запуск
+
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://github.com/Akvamarinika/hangman.git
+   ```
+
+2. Перейдите в каталог проекта:
+   ```bash
+   cd hangman
+   ```
+
+3. Соберите проект:
+   * **Windows (PowerShell):**
+     ```powershell
+     .\gradlew.bat clean build
+     ```
+   * **Linux / macOS:**
+     ```bash
+     ./gradlew clean build
+     ```
+
+4. Запустите игру:
+   * **Windows (PowerShell):**
+     ```powershell
+     .\gradlew.bat run
+     ```
+   * **Linux / macOS:**
+     ```bash
+     ./gradlew run
+     ```
+
+⚠️ **Важно:** Файл `russian-words.txt` должен находиться в корне проекта, если приложение обращается к нему по относительному пути.
+
