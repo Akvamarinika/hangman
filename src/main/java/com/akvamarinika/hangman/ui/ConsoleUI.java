@@ -90,12 +90,6 @@ public class ConsoleUI implements GameUI{
         }
     }
 
-    private boolean validate(String letter){
-        return pattern
-                .matcher(letter)
-                .matches();
-    }
-
     @Override
     public Menu readMenuCommand() {
         char inputMenuNumber = scanner.next().trim().charAt(0);
@@ -105,5 +99,11 @@ public class ConsoleUI implements GameUI{
             case EXIT -> Menu.EXIT;
             default -> Menu.UNKNOWN;
         };
+    }
+
+    private boolean validate(String letter){
+        return pattern
+                .matcher(letter)
+                .matches();
     }
 }

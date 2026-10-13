@@ -18,10 +18,6 @@ public class Game {
         this.state = GameState.CONTINUE;
     }
 
-    private int loseLife() {
-        return countLives--;
-    }
-
     public int getCountLives() {
         return countLives;
     }
@@ -49,6 +45,18 @@ public class Game {
         return hasLetter ? GameMoveResult.CORRECT_LETTER : GameMoveResult.WRONG_LETTER;
     }
 
+    public Set<Character> getUsedLetters() {
+        return usedLetters;
+    }
+
+    public String getSecretWord(){
+        return word.getSecretWord();
+    }
+
+    private int loseLife() {
+        return countLives--;
+    }
+
     private boolean alreadyNamed(char letter) {
         return usedLetters.contains(letter);
     }
@@ -59,13 +67,5 @@ public class Game {
         } else if (word.isSolved()) {
             state = GameState.WIN;
         }
-    }
-
-    public Set<Character> getUsedLetters() {
-        return usedLetters;
-    }
-
-    public String getSecretWord(){
-        return word.getSecretWord();
     }
 }
