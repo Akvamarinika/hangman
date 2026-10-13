@@ -1,12 +1,12 @@
-package main.java.com.akvamarinika.hangman.core;
+package com.akvamarinika.hangman.core;
 
-import main.java.com.akvamarinika.hangman.model.Game;
-import main.java.com.akvamarinika.hangman.model.GameMoveResult;
-import main.java.com.akvamarinika.hangman.model.GameState;
-import main.java.com.akvamarinika.hangman.model.Word;
-import main.java.com.akvamarinika.hangman.provider.WordProvider;
-import main.java.com.akvamarinika.hangman.ui.GameUI;
-import main.java.com.akvamarinika.hangman.ui.Menu;
+import com.akvamarinika.hangman.model.Game;
+import com.akvamarinika.hangman.model.GameMoveResult;
+import com.akvamarinika.hangman.model.GameState;
+import com.akvamarinika.hangman.model.Word;
+import com.akvamarinika.hangman.provider.WordProvider;
+import com.akvamarinika.hangman.ui.GameUI;
+import com.akvamarinika.hangman.ui.Menu;
 
 public class GameRunner {
     private final GameUI gameUI;

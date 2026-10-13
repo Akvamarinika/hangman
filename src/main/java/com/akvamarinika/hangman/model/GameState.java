@@ -1,4 +1,4 @@
-package main.java.com.akvamarinika.hangman.model;
+package com.akvamarinika.hangman.model;
 
 public enum GameState {
     WIN,

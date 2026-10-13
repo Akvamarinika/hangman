@@ -1,10 +1,10 @@
-package main.java.com.akvamarinika.hangman;
+package com.akvamarinika.hangman;
 
-import main.java.com.akvamarinika.hangman.core.GameRunner;
-import main.java.com.akvamarinika.hangman.provider.FileWordProvider;
-import main.java.com.akvamarinika.hangman.ui.ConsoleUI;
-import main.java.com.akvamarinika.hangman.ui.GameText;
-import main.java.com.akvamarinika.hangman.ui.RussianText;
+import com.akvamarinika.hangman.core.GameRunner;
+import com.akvamarinika.hangman.provider.FileWordProvider;
+import com.akvamarinika.hangman.ui.ConsoleUI;
+import com.akvamarinika.hangman.ui.GameText;
+import com.akvamarinika.hangman.ui.RussianText;
 
 public class HangmanApplication {
     public static void main(String[] args){

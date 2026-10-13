@@ -1,7 +1,7 @@
-package main.java.com.akvamarinika.hangman.ui;
+package com.akvamarinika.hangman.ui;
 
-import main.java.com.akvamarinika.hangman.model.GameState;
-import main.java.com.akvamarinika.hangman.model.Letter;
+import com.akvamarinika.hangman.model.GameState;
+import com.akvamarinika.hangman.model.Letter;
 
 import java.util.List;
 import java.util.Set;

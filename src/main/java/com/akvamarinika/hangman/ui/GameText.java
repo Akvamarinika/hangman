@@ -1,4 +1,4 @@
-package main.java.com.akvamarinika.hangman.ui;
+package com.akvamarinika.hangman.ui;
 
 public interface GameText {
     String getRegexPattern();

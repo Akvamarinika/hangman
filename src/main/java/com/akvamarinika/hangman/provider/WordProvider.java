@@ -1,4 +1,4 @@
-package main.java.com.akvamarinika.hangman.provider;
+package com.akvamarinika.hangman.provider;
 
 @FunctionalInterface
 public interface WordProvider {

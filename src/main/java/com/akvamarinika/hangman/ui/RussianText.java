@@ -1,6 +1,6 @@
-package main.java.com.akvamarinika.hangman.ui;
+package com.akvamarinika.hangman.ui;
 
-public record RussianText() implements GameText{
+public record RussianText() implements GameText {
 
     @Override
     public String getRegexPattern() {
