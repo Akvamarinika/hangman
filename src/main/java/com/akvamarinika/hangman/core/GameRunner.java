@@ -35,7 +35,7 @@ public class GameRunner {
         Game game = new Game(word);
 
         while (game.getState() == GameState.CONTINUE) {
-            displayGameState(game);
+            gameUI.displayGameState(game);
             char letter = gameUI.readLetter();
             GameMoveResult gameMoveResult = game.guessLetter(letter);
 
@@ -44,14 +44,7 @@ public class GameRunner {
             }
         }
 
-        displayGameState(game);
+        gameUI.displayGameState(game);
         gameUI.displayGameResult(game.getState(), game.getSecretWord());
-    }
-
-    private void displayGameState(Game game) {
-        gameUI.displayWordMask(game.getStateWord());
-        gameUI.displayLives(game.getCountLives());
-        gameUI.displayUsedLetters(game.getUsedLetters());
-        gameUI.displayHangmanArt(game.getCountLives());
     }
 }

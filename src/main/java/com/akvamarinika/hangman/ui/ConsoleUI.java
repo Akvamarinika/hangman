@@ -1,5 +1,6 @@
 package com.akvamarinika.hangman.ui;
 
+import com.akvamarinika.hangman.model.Game;
 import com.akvamarinika.hangman.model.GameState;
 import com.akvamarinika.hangman.model.Letter;
 
@@ -25,32 +26,16 @@ public class ConsoleUI implements GameUI{
     }
 
     @Override
+    public void displayGameState(Game game) {
+        this.displayWordMask(game.getStateWord());
+        this.displayLives(game.getCountLives());
+        this.displayUsedLetters(game.getUsedLetters());
+        this.displayHangmanArt(game.getCountLives());
+    }
+
+    @Override
     public void displayMenu() {
         System.out.print(gameText.getMenuTemplate());
-    }
-
-    @Override
-    public void displayLives(int countLives) {
-        System.out.printf(gameText.getLivesTemplate(), SYMBOL_LIVE.repeat(countLives));
-    }
-
-    public void displayHangmanArt(int countLives){
-        String art = HangmanArt.getArt(countLives);
-        System.out.println(art);
-    }
-
-    @Override
-    public void displayWordMask(List<Letter> stateWord) {
-        StringBuilder sb = new StringBuilder(stateWord.size() * 2);
-        for (Letter letter : stateWord) {
-            if (letter.isSolved()) {
-                sb.append(letter.getValue()).append(" ");
-            } else {
-                sb.append(SYMBOL_CLOSED_LETTER).append(" ");
-            }
-        }
-
-        System.out.printf(gameText.getSecretWordTemplate(), sb);
     }
 
     @Override
@@ -66,14 +51,6 @@ public class ConsoleUI implements GameUI{
     @Override
     public void displayAlreadyUsed(char letter){
         System.out.printf(gameText.getAlreadyUsedTemplate(), letter);
-    }
-
-    public void displayUsedLetters(Set<Character> usedLetters){
-        String formattedLetters = usedLetters.stream()
-                .sorted()
-                .map(String::valueOf)
-                .collect(Collectors.joining(", "));
-        System.out.printf(gameText.getUsedLettersTemplate(), formattedLetters);
     }
 
     @Override
@@ -99,6 +76,36 @@ public class ConsoleUI implements GameUI{
             case EXIT -> Menu.EXIT;
             default -> Menu.UNKNOWN;
         };
+    }
+
+    private void displayLives(int countLives) {
+        System.out.printf(gameText.getLivesTemplate(), SYMBOL_LIVE.repeat(countLives));
+    }
+
+    private void displayHangmanArt(int countLives){
+        String art = HangmanArt.getArt(countLives);
+        System.out.println(art);
+    }
+
+    private void displayWordMask(List<Letter> stateWord) {
+        StringBuilder sb = new StringBuilder(stateWord.size() * 2);
+        for (Letter letter : stateWord) {
+            if (letter.isSolved()) {
+                sb.append(letter.getValue()).append(" ");
+            } else {
+                sb.append(SYMBOL_CLOSED_LETTER).append(" ");
+            }
+        }
+
+        System.out.printf(gameText.getSecretWordTemplate(), sb);
+    }
+
+    private void displayUsedLetters(Set<Character> usedLetters){
+        String formattedLetters = usedLetters.stream()
+                .sorted()
+                .map(String::valueOf)
+                .collect(Collectors.joining(", "));
+        System.out.printf(gameText.getUsedLettersTemplate(), formattedLetters);
     }
 
     private boolean validate(String letter){
