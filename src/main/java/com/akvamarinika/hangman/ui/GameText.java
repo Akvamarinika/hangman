@@ -5,6 +5,7 @@ public interface GameText {
 
     String getLoseTemplate();
     String getWinTemplate();
+    String getInvalidMenuChoiceTemplate();
     String getInvalidLetterTemplate();
     String getAlreadyUsedTemplate();
     String getMenuTemplate();

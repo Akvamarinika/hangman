@@ -7,6 +7,7 @@ public interface GameUI {
     void displayGameState(Game game);
     void displayMenu();
     void displayGameResult(GameState gameState, String secretWord);
+    void displayInvalidMenuChoice();
     void displayAlreadyUsed(char letter);
     char readLetter();
     Menu readMenuCommand();

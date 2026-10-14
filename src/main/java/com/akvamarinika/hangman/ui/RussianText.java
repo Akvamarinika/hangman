@@ -18,6 +18,11 @@ public record RussianText() implements GameText {
     }
 
     @Override
+    public String getInvalidMenuChoiceTemplate(){
+        return "Неверный выбор. Пожалуйста, выберите пункт из меню (например, 1 или 2).\n\n";
+    }
+
+    @Override
     public String getInvalidLetterTemplate() {
         return "'%s' - не является русской буквой. ";
     }

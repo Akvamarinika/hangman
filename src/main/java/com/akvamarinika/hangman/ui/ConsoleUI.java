@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 public class ConsoleUI implements GameUI{
     private static final String SYMBOL_LIVE = "❤️";
     private static final String SYMBOL_CLOSED_LETTER = "_";
-    private static final char NEW_GAME = '1';
-    private static final char EXIT = '2';
+    private static final String NEW_GAME = "1";
+    private static final String EXIT = "2";
     private final GameText gameText;
     private final Pattern pattern;
     private final Scanner scanner;
@@ -49,6 +49,11 @@ public class ConsoleUI implements GameUI{
     }
 
     @Override
+    public void displayInvalidMenuChoice() {
+        System.out.printf(gameText.getInvalidMenuChoiceTemplate());
+    }
+
+    @Override
     public void displayAlreadyUsed(char letter){
         System.out.printf(gameText.getAlreadyUsedTemplate(), letter);
     }
@@ -69,7 +74,7 @@ public class ConsoleUI implements GameUI{
 
     @Override
     public Menu readMenuCommand() {
-        char inputMenuNumber = scanner.next().trim().charAt(0);
+        String inputMenuNumber = scanner.nextLine().trim();
 
         return switch (inputMenuNumber) {
             case NEW_GAME -> Menu.NEW_GAME;

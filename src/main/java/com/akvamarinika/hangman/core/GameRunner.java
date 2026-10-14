@@ -23,8 +23,11 @@ public class GameRunner {
         while (menu != Menu.EXIT) {
             gameUI.displayMenu();
             menu = gameUI.readMenuCommand();
-            if (menu == Menu.NEW_GAME) {
-                gameStart();
+
+            switch (menu) {
+                case NEW_GAME -> gameStart();
+                case EXIT -> {}
+                case UNKNOWN -> gameUI.displayInvalidMenuChoice();
             }
         }
     }
