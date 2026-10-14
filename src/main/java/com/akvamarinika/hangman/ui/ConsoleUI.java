@@ -16,12 +16,14 @@ public class ConsoleUI implements GameUI{
     private static final String NEW_GAME = "1";
     private static final String EXIT = "2";
     private final GameText gameText;
-    private final Pattern pattern;
+    private final Pattern singleCyrillicPattern;
+    private final Pattern multipleCyrillicPattern;
     private final Scanner scanner;
 
     public ConsoleUI(GameText gameText) {
         this.gameText = gameText;
-        this.pattern = Pattern.compile(gameText.getRegexPattern());
+        this.singleCyrillicPattern = Pattern.compile(gameText.getSingleLetterPattern());
+        this.multipleCyrillicPattern = Pattern.compile(gameText.getMultipleLetterPattern());
         this.scanner = new Scanner(System.in);
     }
 
@@ -62,13 +64,16 @@ public class ConsoleUI implements GameUI{
     public char readLetter() {
         while (true) {
             System.out.print(gameText.getInputPromptTemplate());
-            String inputLetter = scanner.next().trim().toUpperCase();
+            String inputLetter = scanner.nextLine().trim().toUpperCase();
+            SymbolInputResult symbolInputResult = validate(inputLetter);
 
-            if (validate(inputLetter)) {
-                return inputLetter.charAt(0);
+            switch (symbolInputResult){
+                case VALID -> {
+                    return inputLetter.charAt(0);
+                }
+                case MULTIPLE_CYRILLIC_SYMBOLS ->  System.out.printf(gameText.getTooManySymbolsTemplate(), inputLetter);
+                case INVALID_SYMBOL -> System.out.printf(gameText.getInvalidLetterTemplate(), inputLetter);
             }
-
-            System.out.printf(gameText.getInvalidLetterTemplate(), inputLetter);
         }
     }
 
@@ -113,9 +118,15 @@ public class ConsoleUI implements GameUI{
         System.out.printf(gameText.getUsedLettersTemplate(), formattedLetters);
     }
 
-    private boolean validate(String letter){
-        return pattern
-                .matcher(letter)
-                .matches();
+    private SymbolInputResult validate(String letter){
+        if (multipleCyrillicPattern.matcher(letter).matches()){
+            return SymbolInputResult.MULTIPLE_CYRILLIC_SYMBOLS;
+        }
+
+        if (singleCyrillicPattern.matcher(letter).matches()){
+            return SymbolInputResult.VALID;
+        }
+
+        return SymbolInputResult.INVALID_SYMBOL;
     }
 }

@@ -1,11 +1,13 @@
 package com.akvamarinika.hangman.ui;
 
 public interface GameText {
-    String getRegexPattern();
+    String getSingleLetterPattern();
+    String getMultipleLetterPattern();
 
     String getLoseTemplate();
     String getWinTemplate();
     String getInvalidMenuChoiceTemplate();
+    String getTooManySymbolsTemplate();
     String getInvalidLetterTemplate();
     String getAlreadyUsedTemplate();
     String getMenuTemplate();

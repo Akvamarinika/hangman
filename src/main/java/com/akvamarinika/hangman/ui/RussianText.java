@@ -3,8 +3,13 @@ package com.akvamarinika.hangman.ui;
 public record RussianText() implements GameText {
 
     @Override
-    public String getRegexPattern() {
-        return "[а-яА-ЯёЁ]";
+    public String getSingleLetterPattern() {
+        return "^[а-яА-ЯёЁ]$";
+    }
+
+    @Override
+    public String getMultipleLetterPattern() {
+        return "^[а-яА-ЯёЁ]{2,}$";
     }
 
     @Override
@@ -20,6 +25,11 @@ public record RussianText() implements GameText {
     @Override
     public String getInvalidMenuChoiceTemplate(){
         return "Неверный выбор. Пожалуйста, выберите пункт из меню (например, 1 или 2).\n\n";
+    }
+
+    @Override
+    public String getTooManySymbolsTemplate(){
+        return "'%s' - неверный ввод. Пожалуйста, введите только одну русскую букву.\n";
     }
 
     @Override
