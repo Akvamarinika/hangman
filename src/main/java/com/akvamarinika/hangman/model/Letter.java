@@ -2,25 +2,21 @@ package com.akvamarinika.hangman.model;
 
 public class Letter {
     private final char value;
-    private boolean isSolved = false;
+    private boolean isOpen;
 
     public Letter(char value) {
         this.value = value;
     }
 
-    public boolean openIfMatches(char letter) {
-        if (value == letter) {
-            isSolved = true;
-            return true;
-        }
-        return false;
+    public void open() {
+        isOpen = true;
     }
 
     public char getValue() {
         return value;
     }
 
-    public boolean isSolved() {
-        return isSolved;
+    public boolean isOpen() {
+        return isOpen;
     }
 }
