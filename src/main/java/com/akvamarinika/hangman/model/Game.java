@@ -7,17 +7,17 @@ public class Game {
     private static final int LIVES = 6;
     private final Set<Character> usedLetters = new HashSet<>();
     private final Word word;
-    private int countLives;
+    private int livesCount;
     private GameState state;
 
     public Game(Word word) {
         this.word = word;
-        this.countLives = LIVES;
+        this.livesCount = LIVES;
         this.state = GameState.CONTINUE;
     }
 
-    public int getCountLives() {
-        return countLives;
+    public int getLivesCount() {
+        return livesCount;
     }
 
     public String getMaskedWord(char hideSymbol) {
@@ -29,11 +29,11 @@ public class Game {
     }
 
     public GameMoveResult guessLetter(char letter) {
-        if (alreadyNamed(letter)) {
+        if (isUsedLetter(letter)) {
             return GameMoveResult.USED_LETTER;
         }
 
-        boolean hasLetter = word.makeGuessLetter(letter);
+        boolean hasLetter = word.openLetter(letter);
         if (!hasLetter) {
             this.loseLife();
         }
@@ -52,15 +52,15 @@ public class Game {
     }
 
     private int loseLife() {
-        return --countLives;
+        return --livesCount;
     }
 
-    private boolean alreadyNamed(char letter) {
+    private boolean isUsedLetter(char letter) {
         return usedLetters.contains(letter);
     }
 
     private void updateState() {
-        if (countLives == 0) {
+        if (livesCount == 0) {
             state = GameState.LOSS;
         } else if (word.isSolved()) {
             state = GameState.WIN;

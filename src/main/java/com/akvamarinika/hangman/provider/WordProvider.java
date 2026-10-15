@@ -2,5 +2,5 @@ package com.akvamarinika.hangman.provider;
 
 @FunctionalInterface
 public interface WordProvider {
-    String chooseWordRandom();
+    String getRandomWord();
 }

@@ -30,7 +30,7 @@ public class Word {
         return !matchedLetters.isEmpty();
     }
 
-    public boolean isSolved() {
+    public boolean isOpened() {
         for (Letter letter : mask) {
             if (!letter.isOpen()) {
                 return false;

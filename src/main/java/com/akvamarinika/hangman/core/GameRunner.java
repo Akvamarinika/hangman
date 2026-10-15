@@ -20,21 +20,21 @@ public class GameRunner {
         this.wordProvider = wordProvider;
     }
 
-    public void run() {
+    public void execute() {
         while (true) {
             gameUI.displayMenu();
             Menu menu = gameUI.readMenuCommand();
 
             switch (menu) {
-                case NEW_GAME -> gameStart();
+                case NEW_GAME -> startGame();
                 case EXIT -> { return;}
                 case UNKNOWN -> gameUI.displayInvalidMenuChoice();
             }
         }
     }
 
-    private void gameStart() {
-        String secretWord = wordProvider.chooseWordRandom();
+    private void startGame() {
+        String secretWord = wordProvider.getRandomWord();
         Word word = new Word(secretWord);
         Game game = new Game(word);
 
@@ -56,7 +56,7 @@ public class GameRunner {
 
     private SnapshotGame createSnapshotGame(Game game, char hideSymbol){
         String maskedWord = game.getMaskedWord(hideSymbol);
-        int countLives = game.getCountLives();
+        int countLives = game.getLivesCount();
         Set<Character> usedSymbols = game.getUsedLetters();
         return new SnapshotGame(maskedWord, countLives, usedSymbols);
     }

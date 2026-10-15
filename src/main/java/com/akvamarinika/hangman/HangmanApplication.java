@@ -13,7 +13,7 @@ public class HangmanApplication {
 
         try {
             GameRunner gameRunner = new GameRunner(new ConsoleUI(gameText), new FileWordProvider("russian-words.txt"));
-            gameRunner.run();
+            gameRunner.execute();
         } catch (WordSourceException e) {
             System.err.printf(gameText.getDictionaryErrorTemplate(), e.getPath().toAbsolutePath());
         } catch (Exception e) {

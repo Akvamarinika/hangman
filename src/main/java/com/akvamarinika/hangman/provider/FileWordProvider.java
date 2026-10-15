@@ -16,7 +16,7 @@ public class FileWordProvider implements WordProvider {
         this.random = new Random();
     }
 
-    public String chooseWordRandom() {
+    public String getRandomWord() {
         List<String> words = readFile();
         int index = random.nextInt(words.size());
         return words.get(index).toUpperCase();
