@@ -18,15 +18,13 @@ public class GameRunner {
     }
 
     public void run() {
-        Menu menu = Menu.UNKNOWN;
-
-        while (menu != Menu.EXIT) {
+        while (true) {
             gameUI.displayMenu();
-            menu = gameUI.readMenuCommand();
+            Menu menu = gameUI.readMenuCommand();
 
             switch (menu) {
                 case NEW_GAME -> gameStart();
-                case EXIT -> {}
+                case EXIT -> { return;}
                 case UNKNOWN -> gameUI.displayInvalidMenuChoice();
             }
         }
