@@ -1,10 +1,8 @@
 package com.akvamarinika.hangman.ui;
 
-import com.akvamarinika.hangman.model.Game;
+import com.akvamarinika.hangman.dto.SnapshotGame;
 import com.akvamarinika.hangman.model.GameState;
-import com.akvamarinika.hangman.model.Letter;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -12,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class ConsoleUI implements GameUI{
     private static final String SYMBOL_LIVE = "❤️";
-    private static final String SYMBOL_CLOSED_LETTER = "_";
+    private static final char SYMBOL_CLOSED_LETTER = '_';
     private static final String NEW_GAME = "1";
     private static final String EXIT = "2";
     private final GameText gameText;
@@ -28,11 +26,11 @@ public class ConsoleUI implements GameUI{
     }
 
     @Override
-    public void displayGameState(Game game) {
-        this.displayWordMask(game.getStateWord());
-        this.displayLives(game.getCountLives());
-        this.displayUsedLetters(game.getUsedLetters());
-        this.displayHangmanArt(game.getCountLives());
+    public void displayGameState(SnapshotGame snapshotGame) {
+        this.displayWordMask(snapshotGame.maskedWord());
+        this.displayLives(snapshotGame.lives());
+        this.displayUsedLetters(snapshotGame.usedLetters());
+        this.displayHangmanArt(snapshotGame.lives());
     }
 
     @Override
@@ -88,6 +86,11 @@ public class ConsoleUI implements GameUI{
         };
     }
 
+    @Override
+    public char getMaskSymbol() {
+        return SYMBOL_CLOSED_LETTER;
+    }
+
     private void displayLives(int countLives) {
         System.out.printf(gameText.getLivesTemplate(), SYMBOL_LIVE.repeat(countLives));
     }
@@ -97,17 +100,9 @@ public class ConsoleUI implements GameUI{
         System.out.println(art);
     }
 
-    private void displayWordMask(List<Letter> stateWord) {
-        StringBuilder sb = new StringBuilder(stateWord.size() * 2);
-        for (Letter letter : stateWord) {
-            if (letter.isSolved()) {
-                sb.append(letter.getValue()).append(" ");
-            } else {
-                sb.append(SYMBOL_CLOSED_LETTER).append(" ");
-            }
-        }
-
-        System.out.printf(gameText.getSecretWordTemplate(), sb);
+    private void displayWordMask(String maskWord) {
+        String formatedMask = String.join(" ", maskWord.split(""));
+        System.out.printf(gameText.getSecretWordTemplate(), formatedMask);
     }
 
     private void displayUsedLetters(Set<Character> usedLetters){
