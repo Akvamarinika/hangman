@@ -4,6 +4,7 @@ public interface GameText {
     String getSingleLetterPattern();
     String getMultipleLetterPattern();
 
+    String getDictionaryErrorTemplate();
     String getLoseTemplate();
     String getWinTemplate();
     String getInvalidMenuChoiceTemplate();

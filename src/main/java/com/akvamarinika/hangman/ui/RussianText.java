@@ -13,6 +13,11 @@ public record RussianText() implements GameText {
     }
 
     @Override
+    public String getDictionaryErrorTemplate() {
+        return "Не удалось загрузить словарь слов. Проверьте файл: %s\n\n";
+    }
+
+    @Override
     public String getLoseTemplate() {
         return "❌❌❌ Вы проиграли! ❌❌❌ Загаданное слово: %s\n\n";
     }

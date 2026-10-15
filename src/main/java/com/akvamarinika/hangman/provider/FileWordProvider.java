@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Random;
 
 public class FileWordProvider implements WordProvider {
-    public static final String ERROR_READ_FILE = "Failed to open file containing words at specified path '%s'. The program will terminate.";
     private final String filePath;
     private final Random random;
 
@@ -25,11 +24,11 @@ public class FileWordProvider implements WordProvider {
 
     private List<String> readFile() {
         Path path = Path.of(filePath);
+
         try (BufferedReader fileReader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
             return fileReader.lines().toList();
         } catch (IOException e) {
-            String absolutePath = path.toAbsolutePath().toString();
-            throw new UncheckedIOException(ERROR_READ_FILE.formatted(absolutePath), e);
+            throw new WordSourceException(path, e);
         }
     }
 }
