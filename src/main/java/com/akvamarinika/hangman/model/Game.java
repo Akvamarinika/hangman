@@ -52,7 +52,7 @@ public class Game {
     }
 
     private int loseLife() {
-        return countLives--;
+        return --countLives;
     }
 
     private boolean alreadyNamed(char letter) {
