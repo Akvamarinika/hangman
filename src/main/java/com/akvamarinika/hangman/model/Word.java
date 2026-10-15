@@ -2,17 +2,16 @@ package com.akvamarinika.hangman.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Word {
-    private final String secretWord;
     private final List<Letter> stateWord;
 
     public Word(String secretWord) {
-        this.secretWord = secretWord;
-        this.stateWord = createMask();
+        this.stateWord = createMask(secretWord);
     }
 
-    private List<Letter> createMask() {
+    private List<Letter> createMask(String secretWord) {
         List<Letter> state = new ArrayList<>(secretWord.length());
         for (char value : secretWord.toCharArray()) {
             state.add(new Letter(value));
@@ -37,11 +36,21 @@ public class Word {
         return true;
     }
 
-    public List<Letter> getStateWord() {
-        return new ArrayList<>(stateWord);
+    public String getSecretWord() {
+        return stateWord.stream()
+                .map(letter -> String.valueOf(letter.getValue()))
+                .collect(Collectors.joining());
     }
 
-    public String getSecretWord() {
-        return secretWord;
+    public String getMaskedWorld(char hideSymbol){
+        StringBuilder sb = new StringBuilder(stateWord.size());
+        for (Letter letter : stateWord) {
+            if (letter.isSolved()){
+                sb.append(letter.getValue());
+            } else {
+                sb.append(hideSymbol);
+            }
+        }
+        return sb.toString();
     }
 }

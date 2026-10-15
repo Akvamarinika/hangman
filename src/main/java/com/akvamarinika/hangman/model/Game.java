@@ -1,8 +1,6 @@
 package com.akvamarinika.hangman.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Game {
@@ -22,8 +20,8 @@ public class Game {
         return countLives;
     }
 
-    public List<Letter> getStateWord() {
-        return new ArrayList<>(word.getStateWord());
+    public String getMaskedWord(char hideSymbol) {
+        return word.getMaskedWorld(hideSymbol);
     }
 
     public GameState getState() {
