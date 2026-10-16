@@ -1,6 +1,6 @@
 package com.akvamarinika.hangman.ui;
 
-public record RussianText() implements GameText {
+public class RussianText implements GameText {
 
     @Override
     public String getSingleLetterPattern() {
