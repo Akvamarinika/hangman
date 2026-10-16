@@ -34,7 +34,7 @@ public class ConsoleUI implements GameUI{
 
     @Override
     public void displayMenu() {
-        System.out.print(gameText.getMenuTemplate());
+        System.out.printf(gameText.getMenuTemplate(), NEW_GAME, EXIT);
     }
 
     @Override
