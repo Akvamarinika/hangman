@@ -8,8 +8,6 @@ import com.akvamarinika.hangman.provider.WordProvider;
 import com.akvamarinika.hangman.ui.GameUI;
 import com.akvamarinika.hangman.ui.Menu;
 
-import java.util.Set;
-
 public class GameRunner {
     private final GameUI gameUI;
     private final WordProvider wordProvider;
@@ -26,7 +24,9 @@ public class GameRunner {
 
             switch (menu) {
                 case NEW_GAME -> startGame();
-                case EXIT -> { return;}
+                case EXIT -> {
+                    return;
+                }
                 case UNKNOWN -> gameUI.displayInvalidMenuChoice();
             }
         }
@@ -38,29 +38,23 @@ public class GameRunner {
         Game game = new Game(word);
 
         while (!game.isGameOver()) {
-            SnapshotGame snapshotGame = createSnapshotGame(game, gameUI.getMaskSymbol());
+            SnapshotGame snapshotGame = SnapshotGame.from(game, gameUI.getMaskSymbol());
             gameUI.displayGameState(snapshotGame);
             char letter = gameUI.readLetter();
             GameMoveResult gameMoveResult = game.guessLetter(letter);
 
-            if (gameMoveResult == GameMoveResult.USED_LETTER){
+            if (gameMoveResult == GameMoveResult.USED_LETTER) {
                 gameUI.displayAlreadyUsed(letter);
             }
         }
 
-        SnapshotGame finalSnapshot = createSnapshotGame(game, gameUI.getMaskSymbol());
+        SnapshotGame finalSnapshot = SnapshotGame.from(game, gameUI.getMaskSymbol());
         gameUI.displayGameState(finalSnapshot);
+
         if (game.isWin()) {
             gameUI.displayWinMessage(secretWord);
         } else {
             gameUI.displayLossMessage(secretWord);
         }
-    }
-
-    private SnapshotGame createSnapshotGame(Game game, char hideSymbol){
-        String maskedWord = game.getMaskedWord(hideSymbol);
-        int countLives = game.getLivesCount();
-        Set<Character> usedSymbols = game.getUsedLetters();
-        return new SnapshotGame(maskedWord, countLives, usedSymbols);
     }
 }
