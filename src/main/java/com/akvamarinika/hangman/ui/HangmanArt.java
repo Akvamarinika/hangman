@@ -56,13 +56,12 @@ public class HangmanArt {
             |
         ============
         """,
-            """
-            
-            
-            
-            
-            
-            
+            """ 
+            |    
+            |    
+            |    
+            |   
+            |
         ============
         """
     };
@@ -70,14 +69,6 @@ public class HangmanArt {
     private HangmanArt() {}
 
     public static String getArt(int countLives) {
-        if (countLives < 0) {
-            return STAGES[0];
-        }
-
-        if (countLives >= STAGES.length) {
-            return STAGES[STAGES.length - 1];
-        }
-
         return STAGES[countLives];
     }
 }
