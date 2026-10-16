@@ -20,14 +20,15 @@ public class Word {
         return state;
     }
 
-    public boolean openLetter(char symbol) {
-        List<Letter> matchedLetters = mask.stream()
+    public void openLetter(char symbol) {
+        mask.stream()
                 .filter(letter -> letter.getValue() == symbol)
-                .toList();
+                .forEach(Letter::open);
+    }
 
-        matchedLetters.forEach(Letter::open);
-
-        return !matchedLetters.isEmpty();
+    public boolean hasLetter(char symbol){
+        return mask.stream()
+                .anyMatch(letter -> letter.getValue() == symbol);
     }
 
     public boolean isOpened() {

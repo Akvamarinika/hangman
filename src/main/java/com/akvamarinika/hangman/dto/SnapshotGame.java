@@ -13,7 +13,7 @@ public record SnapshotGame(
         return new SnapshotGame(
                 game.getMaskedWord(hideSymbol),
                 game.getLivesCount(),
-                game.getUsedLetters()
+                game.getUsedSymbols()
         );
     }
 }

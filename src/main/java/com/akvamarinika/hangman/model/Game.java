@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Game {
     private static final int LIVES = 6;
-    private final Set<Character> usedLetters = new HashSet<>();
+    private final Set<Character> usedSymbols = new HashSet<>();
     private final Word word;
     private int livesCount;
 
@@ -22,25 +22,27 @@ public class Game {
         return word.getMaskedWorld(hideSymbol);
     }
 
-    public GameMoveResult guessLetter(char letter) {
-        if (isUsedLetter(letter)) {
+    public GameMoveResult guessLetter(char symbol) {
+        if (isUsedLetter(symbol)) {
             return GameMoveResult.USED_LETTER;
         }
 
-        boolean hasLetter = word.openLetter(letter);
-        if (!hasLetter) {
+        boolean isCorrectGuess = word.hasLetter(symbol);
+        if (word.hasLetter(symbol)) {
+            word.openLetter(symbol);
+        } else {
             this.loseLife();
         }
 
-        usedLetters.add(letter);
-        return hasLetter ? GameMoveResult.CORRECT_LETTER : GameMoveResult.WRONG_LETTER;
+        usedSymbols.add(symbol);
+        return isCorrectGuess ? GameMoveResult.CORRECT_LETTER : GameMoveResult.WRONG_LETTER;
     }
 
-    public Set<Character> getUsedLetters() {
-        return usedLetters;
+    public Set<Character> getUsedSymbols() {
+        return usedSymbols;
     }
 
-    public String getSecretWord(){
+    public String getSecretWord() {
         return word.getSecretWord();
     }
 
@@ -48,17 +50,19 @@ public class Game {
         return word.isOpened();
     }
 
-    public boolean isLose() {return livesCount == 0;}
-
-    public boolean isGameOver() {
-        return  isWin() || isLose();
+    public boolean isLose() {
+        return livesCount == 0;
     }
 
-    private int loseLife() {
-        return --livesCount;
+    public boolean isGameOver() {
+        return isWin() || isLose();
+    }
+
+    private void loseLife() {
+        --livesCount;
     }
 
     private boolean isUsedLetter(char letter) {
-        return usedLetters.contains(letter);
+        return usedSymbols.contains(letter);
     }
 }
