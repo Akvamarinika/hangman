@@ -3,7 +3,6 @@ package com.akvamarinika.hangman.core;
 import com.akvamarinika.hangman.dto.SnapshotGame;
 import com.akvamarinika.hangman.model.Game;
 import com.akvamarinika.hangman.model.GameMoveResult;
-import com.akvamarinika.hangman.model.GameState;
 import com.akvamarinika.hangman.model.Word;
 import com.akvamarinika.hangman.provider.WordProvider;
 import com.akvamarinika.hangman.ui.GameUI;
@@ -38,7 +37,7 @@ public class GameRunner {
         Word word = new Word(secretWord);
         Game game = new Game(word);
 
-        while (game.getState() == GameState.CONTINUE) {
+        while (!game.isGameOver()) {
             SnapshotGame snapshotGame = createSnapshotGame(game, gameUI.getMaskSymbol());
             gameUI.displayGameState(snapshotGame);
             char letter = gameUI.readLetter();
@@ -51,7 +50,11 @@ public class GameRunner {
 
         SnapshotGame finalSnapshot = createSnapshotGame(game, gameUI.getMaskSymbol());
         gameUI.displayGameState(finalSnapshot);
-        gameUI.displayGameResult(game.getState(), game.getSecretWord());
+        if (game.isWin()) {
+            gameUI.displayWinMessage(secretWord);
+        } else {
+            gameUI.displayLossMessage(secretWord);
+        }
     }
 
     private SnapshotGame createSnapshotGame(Game game, char hideSymbol){

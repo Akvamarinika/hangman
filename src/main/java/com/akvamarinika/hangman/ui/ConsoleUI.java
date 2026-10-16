@@ -1,7 +1,6 @@
 package com.akvamarinika.hangman.ui;
 
 import com.akvamarinika.hangman.dto.SnapshotGame;
-import com.akvamarinika.hangman.model.GameState;
 
 import java.util.Scanner;
 import java.util.Set;
@@ -39,14 +38,10 @@ public class ConsoleUI implements GameUI{
     }
 
     @Override
-    public void displayGameResult(GameState gameState, String secretWord) {
-        switch (gameState) {
-            case WIN -> System.out.printf(gameText.getWinTemplate(), secretWord);
-            case LOSS -> System.out.printf(gameText.getLoseTemplate(), secretWord);
-            case CONTINUE -> {
-            }
-        }
-    }
+    public void displayWinMessage(String secretWord) {System.out.printf(gameText.getWinTemplate(), secretWord);}
+
+    @Override
+    public void displayLossMessage(String secretWord) {System.out.printf(gameText.getLoseTemplate(), secretWord);}
 
     @Override
     public void displayInvalidMenuChoice() {
