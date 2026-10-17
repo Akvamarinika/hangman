@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 public class ConsoleUI implements GameUI{
     private static final String SYMBOL_LIVE = "❤️";
-    private static final char SYMBOL_CLOSED_LETTER = '_';
     private static final String NEW_GAME = "1";
     private static final String EXIT = "2";
     private final GameText gameText;
@@ -79,11 +78,6 @@ public class ConsoleUI implements GameUI{
             case EXIT -> Menu.EXIT;
             default -> Menu.UNKNOWN;
         };
-    }
-
-    @Override
-    public char getMaskSymbol() {
-        return SYMBOL_CLOSED_LETTER;
     }
 
     private void displayLives(int countLives) {

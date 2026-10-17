@@ -11,7 +11,6 @@ public interface GameUI {
     void displayAlreadyUsed(char letter);
     char readLetter();
     Menu readMenuCommand();
-    char getMaskSymbol();
 
 
 }

@@ -7,14 +7,17 @@ import com.akvamarinika.hangman.model.Word;
 import com.akvamarinika.hangman.provider.WordProvider;
 import com.akvamarinika.hangman.ui.GameUI;
 import com.akvamarinika.hangman.ui.Menu;
+import com.akvamarinika.hangman.ui.mapper.SnapshotGameMapper;
 
 public class GameRunner {
     private final GameUI gameUI;
     private final WordProvider wordProvider;
+    private final SnapshotGameMapper snapshotGameMapper;
 
-    public GameRunner(GameUI gameUI, WordProvider wordProvider) {
+    public GameRunner(GameUI gameUI, WordProvider wordProvider, SnapshotGameMapper snapshotGameMapper) {
         this.gameUI = gameUI;
         this.wordProvider = wordProvider;
+        this.snapshotGameMapper = snapshotGameMapper;
     }
 
     public void execute() {
@@ -38,7 +41,7 @@ public class GameRunner {
         Game game = new Game(word);
 
         while (!game.isGameOver()) {
-            SnapshotGame snapshotGame = SnapshotGame.from(game, gameUI.getMaskSymbol());
+            SnapshotGame snapshotGame = snapshotGameMapper.from(game);
             gameUI.displayGameState(snapshotGame);
             char letter = gameUI.readLetter();
             GameMoveResult gameMoveResult = game.guessLetter(letter);
@@ -48,7 +51,7 @@ public class GameRunner {
             }
         }
 
-        SnapshotGame finalSnapshot = SnapshotGame.from(game, gameUI.getMaskSymbol());
+        SnapshotGame finalSnapshot = snapshotGameMapper.from(game);
         gameUI.displayGameState(finalSnapshot);
 
         if (game.isWin()) {
