@@ -1,4 +1,4 @@
-package com.akvamarinika.hangman.dto;
+package com.akvamarinika.hangman.ui.dto;
 
 import java.util.Set;
 

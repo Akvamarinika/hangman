@@ -1,8 +1,8 @@
-package com.akvamarinika.hangman.core;
+package com.akvamarinika.hangman.controller;
 
-import com.akvamarinika.hangman.dto.SnapshotGame;
+import com.akvamarinika.hangman.ui.dto.SnapshotGame;
 import com.akvamarinika.hangman.model.Game;
-import com.akvamarinika.hangman.model.GameFactory;
+import com.akvamarinika.hangman.factory.GameFactory;
 import com.akvamarinika.hangman.model.GameMoveResult;
 import com.akvamarinika.hangman.ui.GameUI;
 import com.akvamarinika.hangman.ui.Menu;

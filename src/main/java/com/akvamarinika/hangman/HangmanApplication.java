@@ -1,7 +1,7 @@
 package com.akvamarinika.hangman;
 
-import com.akvamarinika.hangman.core.GameRunner;
-import com.akvamarinika.hangman.model.GameFactory;
+import com.akvamarinika.hangman.controller.GameRunner;
+import com.akvamarinika.hangman.factory.GameFactory;
 import com.akvamarinika.hangman.provider.FileWordProvider;
 import com.akvamarinika.hangman.provider.WordSourceException;
 import com.akvamarinika.hangman.ui.ConsoleUI;

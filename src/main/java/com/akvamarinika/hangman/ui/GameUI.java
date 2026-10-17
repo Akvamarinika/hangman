@@ -1,6 +1,6 @@
 package com.akvamarinika.hangman.ui;
 
-import com.akvamarinika.hangman.dto.SnapshotGame;
+import com.akvamarinika.hangman.ui.dto.SnapshotGame;
 
 public interface GameUI {
     void displayGameState(SnapshotGame snapshotGame);

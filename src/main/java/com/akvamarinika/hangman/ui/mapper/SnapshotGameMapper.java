@@ -1,6 +1,6 @@
 package com.akvamarinika.hangman.ui.mapper;
 
-import com.akvamarinika.hangman.dto.SnapshotGame;
+import com.akvamarinika.hangman.ui.dto.SnapshotGame;
 import com.akvamarinika.hangman.model.Game;
 
 public class SnapshotGameMapper {

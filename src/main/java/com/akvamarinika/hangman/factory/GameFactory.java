@@ -1,5 +1,7 @@
-package com.akvamarinika.hangman.model;
+package com.akvamarinika.hangman.factory;
 
+import com.akvamarinika.hangman.model.Game;
+import com.akvamarinika.hangman.model.Word;
 import com.akvamarinika.hangman.provider.WordProvider;
 
 public class GameFactory {

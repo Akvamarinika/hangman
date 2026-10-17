@@ -1,6 +1,6 @@
 package com.akvamarinika.hangman.ui;
 
-import com.akvamarinika.hangman.dto.SnapshotGame;
+import com.akvamarinika.hangman.ui.dto.SnapshotGame;
 
 import java.util.Scanner;
 import java.util.Set;
