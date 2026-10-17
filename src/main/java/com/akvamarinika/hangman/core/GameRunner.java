@@ -2,21 +2,20 @@ package com.akvamarinika.hangman.core;
 
 import com.akvamarinika.hangman.dto.SnapshotGame;
 import com.akvamarinika.hangman.model.Game;
+import com.akvamarinika.hangman.model.GameFactory;
 import com.akvamarinika.hangman.model.GameMoveResult;
-import com.akvamarinika.hangman.model.Word;
-import com.akvamarinika.hangman.provider.WordProvider;
 import com.akvamarinika.hangman.ui.GameUI;
 import com.akvamarinika.hangman.ui.Menu;
 import com.akvamarinika.hangman.ui.mapper.SnapshotGameMapper;
 
 public class GameRunner {
     private final GameUI gameUI;
-    private final WordProvider wordProvider;
+    private final GameFactory gameFactory;
     private final SnapshotGameMapper snapshotGameMapper;
 
-    public GameRunner(GameUI gameUI, WordProvider wordProvider, SnapshotGameMapper snapshotGameMapper) {
+    public GameRunner(GameUI gameUI, GameFactory gameFactory, SnapshotGameMapper snapshotGameMapper) {
         this.gameUI = gameUI;
-        this.wordProvider = wordProvider;
+        this.gameFactory = gameFactory;
         this.snapshotGameMapper = snapshotGameMapper;
     }
 
@@ -36,9 +35,7 @@ public class GameRunner {
     }
 
     private void startGame() {
-        String secretWord = wordProvider.getRandomWord();
-        Word word = new Word(secretWord);
-        Game game = new Game(word);
+        Game game = gameFactory.createNewGame();
 
         while (!game.isGameOver()) {
             SnapshotGame snapshotGame = snapshotGameMapper.from(game);
@@ -51,6 +48,7 @@ public class GameRunner {
             }
         }
 
+        String secretWord = game.getSecretWord();
         SnapshotGame finalSnapshot = snapshotGameMapper.from(game);
         gameUI.displayGameState(finalSnapshot);
 
